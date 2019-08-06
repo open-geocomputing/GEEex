@@ -1,0 +1,146 @@
+<html>
+<head>
+	<link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+	<style type="text/css">
+	body{width: 250px;
+		height: 1px;
+	}
+
+	html{
+		height: 1px;
+	}
+
+	form {
+		border: 1px solid gray;
+		border-radius: 5px;
+		padding: 5px;
+		margin: 8px;
+		text-align: left;
+	}
+
+	#accordion{
+		margin: 0px 0px 10px 0px;
+	}
+
+	#accordion div.planet{
+		text-align: center;
+		font-size: 13.5;
+		padding: 1px 0 1px 0;
+		background: black;
+		color: white;
+
+	}
+
+	.planet span.planet{
+		background-image:url('https://www.planet.com/assets/logos/logo.svg');
+		background-repeat:round;
+		margin: 10px 0 0 0;	
+		padding: 0px 5%;
+		text-indent: -9999em;
+		overflow: hidden;
+		display: block;
+		font-size: 72px;
+		text-align: center;
+	}
+
+	.planet span.planet.desactivated-img{
+        background-image: none;
+        text-indent: initial;
+        overflow: initial;
+    }
+	input{
+		width: 99%;
+		margin: 5px 0px;
+	}
+
+	img.planet-extraStyle:responsive:before{
+		content: attr(data-alt);
+	}
+
+	img.planet-extraStyle{
+		visibility: hidden
+	}
+
+	div.dropArea{
+		width: 100%;
+		text-align: center;
+		vertical-align: middle;
+		font-size: 30px;
+		display: inline
+	}
+
+	div.dropArea div{
+		padding: 40% 0% 60% 0%;
+		height: 0px;
+		border-style: dotted;
+	}
+
+	div.dropArea div.dragover{
+		border-style: line;
+		color: green;
+	}
+
+	#accordion div.upload-local-files{
+		padding: 10px;
+	}
+
+	div.upload-local-files form{
+		margin: 8px 0px;
+	}
+
+
+</style>
+<script src="jquery-3.3.1.min.js"></script>
+<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<div id="accordion">
+		<h3>Planet Setting</h3>
+		<div class='planet'>
+			<span class="planet desactivated-img">Planet</span>
+			<br>
+			<form id="planetLoginWithUserAndPwd" class="my-form">
+				Planet login:<br>
+				<input type="text" id="planetLogin"><br>
+				
+				Password:<br>
+				<input type="password" id="planetPassword">
+				<br>
+				<input type="submit" value="Log in">
+			</form>
+			OR<br>
+			<form id="planetLoginWithAPIKey" class="my-form">
+				Planet API key:<br>
+				<input type="text" id="PlanetApiKey">
+				<br>
+				<input type="submit" value="Set API Key">
+			</form>
+			<hr>
+			<form id="setPlanetGeePath" class="my-form">
+				Path of Planet Collection <br>in Google Earth Engine <br>(e.g. users/{user_name}/Planet)<br>
+				<input type="text" id="PlanetGeePath">
+				<br>
+				<input type="submit" value="Set path">
+			</form>
+			<form id="setPlanetSetings" class="my-form">
+				Number minimum of tile to show by default :
+				<input type="number" id="numberMinOfTileToDisp">
+				<input type="checkbox" id="dispTunail" name="dispTunail">
+  				<label for="dispTunail">Display Tunail</label>
+				<input type="submit" value="Set">
+			</form>
+		</div>
+		<h3>Uplaod local files</h3>
+		<div class='upload-local-files'>
+			<!--<div class="dropArea"><div>Drop area</div></div>-->
+			<form id="setDropAreaGeePath" class="my-form">
+				Path of where to upload the images in Google Earth Engine (e.g. users/{user_name}/myAsset)<br>
+				<input type="text" id="DropAreaGeePath">
+				<br>
+				<input type="submit" value="Set path">
+			</form>
+		</div>
+	</div>
+</body>
+<script src="popup.js"></script>
+</html>

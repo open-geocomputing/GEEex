@@ -1,0 +1,27 @@
+{
+  "name": "Google Earth Engine unofficial extension",
+  "description": "add some nice and awsome feature to Google Earth Engine ",
+  "version": "0.2",
+  "incognito": "split",
+  "background": {"scripts":["jquery-3.3.1.min.js","background.js"], "persistent": false},
+  "permissions": [
+  	"webNavigation",
+  	"storage" ,
+  	"unlimitedStorage",
+    "*://*.earthengine.google.com/*",
+    "*://*.planet.com/*",
+    "*://*.storage.googleapis.com/*"
+  ],
+  "web_accessible_resources": [
+    "code2Inject.js"
+  ],
+  "browser_action": {
+    "default_popup": "geeAddon.html"
+  },
+  "content_scripts": [{
+    "css": ["geeAddonStyles.css"],
+    "js": ["jquery-3.3.1.min.js","geeAddon.js"],
+    "matches": ["https://code.earthengine.google.com/*"]
+  }],
+  "manifest_version": 2
+}

@@ -1,0 +1,72 @@
+div[style*="display: none;"] + hr
+{
+	display:none;
+}
+
+/** Planet CSS **/
+ 
+img.planet-thumbnail{
+	max-width: 150px;
+	float: left;
+}
+
+@keyframes planetListDisplayAnnimation {
+	from {height: 16px;}
+	to {height: 200px;}
+}
+
+.planetScenesList{
+	height: 200px;
+	overflow: scroll;
+	animation-name: planetListDisplayAnnimation;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+div.planetScenesList div.sceneId{
+	display: inline-block;
+	width: calc(100% - 14px);
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 2px;
+}   
+
+div.planetScenesList div.sceneId div.infobox{
+	overflow: hidden;
+	padding-left: 10px;
+}
+
+div.sceneId.selected{
+	background-color: aliceblue;
+}
+
+div.planetSearch button{
+	margin: 3px 12px;
+}
+
+.avoid-clicks {
+  pointer-events: none;
+  color: gray;
+}
+.avoid-clicks img{
+  filter: grayscale(100%);
+}
+
+div.tree-manager.asset-manager{
+	height:calc(100% - 10px);
+	padding: 2px;
+}
+
+div.tree-manager.asset-manager{
+	border-style: dotted;
+	border-width: 3px;
+}
+
+div.tree-manager.asset-manager.dragover{
+	border-style: solid;
+	border-color: green;
+}
+
+div.tasks-wrapper div:nth-child(100n) {
+    border-bottom: 2px solid #777777;
+}
