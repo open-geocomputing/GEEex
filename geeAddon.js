@@ -625,7 +625,7 @@ function genreateFilter(filter){
 			"type": "RangeFilter",
 			"field_name": filter.arguments.leftField,
 			"config": {
-				"gt": -Number.MAX_VALUE,
+				//"gt": -Number.MAX_VALUE,
 				"lt": filter.arguments.rightValue
 			}
 		}
@@ -636,7 +636,7 @@ function genreateFilter(filter){
 			"field_name": filter.arguments.leftField,
 			"config": {
 				"gt": filter.arguments.rightValue,
-				"lt": Number.MAX_VALUE
+				//"lt": Number.MAX_VALUE
 			}
 		}
 		break;
