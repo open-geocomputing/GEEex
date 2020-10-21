@@ -452,43 +452,36 @@ function uplaodInGeeIfPosible(uploadReturn){
 	}
 }
 
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+console.log(uuidv4());
+
 function ingestInGEE(jsonData){
-	var struct4NewTaskIdAjaxCall={
-		url: 'https://earthengine.googleapis.com/api/newtaskid',
+	var struct4IngestionAjaxCall={
+		//url: 'https://earthengine.googleapis.com/v1/image:ingest?alt=json',
+		url: 'https://earthengine.googleapis.com/v1alpha/projects/earthengine-legacy/image:import?alt=json',
 		type: "POST",
-		data: 'count=1',
 		dataType: "json",
 		cache: false,
-		contentType: "application/x-www-form-urlencoded",
+		contentType: "application/json",
+		data: JSON.stringify({"imageManifest": jsonData,
+					"requestId": uuidv4(),
+					"overwrite": false
+					}),
 		headers: { "Authorization": authTokenGEE },
-		error: function(){
-			lastIngestion=Date.now()+10*1000;
-			toIngestInGeeArray.unshift(jsonData)
-		},
-		success: function(newTaskId){
-			var struct4IngestionAjaxCall={
-				//url: 'https://earthengine.googleapis.com/v1/image:ingest?alt=json',
-				url: 'https://earthengine.googleapis.com/v1alpha/projects/earthengine-legacy/image:import?alt=json',
-				type: "POST",
-				dataType: "json",
-				cache: false,
-				contentType: "application/json",
-				data: JSON.stringify({"imageManifest": jsonData,
-							"requestId": newTaskId["data"][0],
-							"overwrite": false
-							}),
-				headers: { "Authorization": authTokenGEE },
-				error: function(){toIngestInGeeArray.unshift(jsonData)},
-				success: function(result){
-					// $('button .retrybutton').click()
-					// setTimeout("$('button .retrybutton').click()",10000);
+		error: function(){toIngestInGeeArray.unshift(jsonData)},
+		success: function(result){
+			// $('button .retrybutton').click()
+			// setTimeout("$('button .retrybutton').click()",10000);
 
-				}
-			}
-			$.ajax(struct4IngestionAjaxCall);
 		}
 	}
-	$.ajax(struct4NewTaskIdAjaxCall);
+	$.ajax(struct4IngestionAjaxCall);
 }
 
 function isReadyToIngest(jsonData){
