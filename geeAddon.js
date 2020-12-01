@@ -5,7 +5,7 @@ downloadInterval=2000;
 
 maxParallelDownload=10;
 currentParallelDownload=0;
-maxAmountActivated=100;
+maxAmountActivated=30;
 
 maxParallelUploadInGEE=10;
 currentParallelUploadInGEE=0;
@@ -974,16 +974,22 @@ function addSceneInConsole(randomId,features,assetConfig){
 		head.append(htmlCode);
 	}
 
-	var dataJson='{"type":"CompoundValue","scope":[["0",'+JSON.stringify(features.map(e=>{return e.id}))+'],["1",{"type":"Invocation","arguments":{"id":"'+planetPath.slice(0,-1)+'"},"functionName":"ImageCollection.load"}],'+
-		'["2",{"type":"Invocation","arguments":{"rightField":"id","leftValue":{"type":"ValueRef","value":"0"}},"functionName":"Filter.listContains"}],["3",{"type":"Invocation","arguments":{"leftField":"assetType","rightValue":"'+assetConfig+'"}'+
-		',"functionName":"Filter.equals"}],["4",[{"type":"ValueRef","value":"2"},{"type":"ValueRef","value":"3"}]],["5",{"type":"Invocation","arguments":{"filters":{"type":"ValueRef","value":"4"}},"functionName":"Filter.and"}],'+
-		'["6",{"type":"Invocation","arguments":{"collection":{"type":"ValueRef","value":"1"},"filter":{"type":"ValueRef","value":"5"}},"functionName":"Collection.filter"}],["7",{"type":"Invocation",'+
-		'"arguments":{"collection":{"type":"ValueRef","value":"6"}},"functionName":"Collection.size"}],["8",{"type":"Invocation","arguments":{"left":{"type":"ValueRef","value":"7"},"right":1},"functionName":"Number.add"}],'+
-		'["9",{"type":"Invocation","arguments":{"collection":{"type":"ValueRef","value":"6"},"count":{"type":"ValueRef","value":"8"}},"functionName":"Collection.toList"}],["10",{"type":"Invocation","arguments":'+
-		'{"object":{"type":"ArgumentRef","value":"_MAPPING_VAR_0_0"},"property":"id"},"functionName":"Element.get"}],["11",{"type":"Function","argumentNames":["_MAPPING_VAR_0_0"],"body":{"type":"ValueRef","value":"10"}}],'+
-		'["12",{"type":"Invocation","arguments":{"list":{"type":"ValueRef","value":"9"},"baseAlgorithm":{"type":"ValueRef","value":"11"}},"functionName":"List.map"}],["13",{"type":"Invocation","arguments":{"list":{"type":"ValueRef","value":"0"},'+
-		'"other":{"type":"ValueRef","value":"12"}},"functionName":"List.removeAll"}]],"value":{"type":"ValueRef","value":"13"}}'
+	// var dataJson='{"type":"CompoundValue","scope":[["0",'+JSON.stringify(features.map(e=>{return e.id}))+'],["1",{"type":"Invocation","arguments":{"id":"'+planetPath.slice(0,-1)+'"},"functionName":"ImageCollection.load"}],'+
+	// 	'["2",{"type":"Invocation","arguments":{"rightField":"id","leftValue":{"type":"ValueRef","value":"0"}},"functionName":"Filter.listContains"}],["3",{"type":"Invocation","arguments":{"leftField":"assetType","rightValue":"'+assetConfig+'"}'+
+	// 	',"functionName":"Filter.equals"}],["4",[{"type":"ValueRef","value":"2"},{"type":"ValueRef","value":"3"}]],["5",{"type":"Invocation","arguments":{"filters":{"type":"ValueRef","value":"4"}},"functionName":"Filter.and"}],'+
+	// 	'["6",{"type":"Invocation","arguments":{"collection":{"type":"ValueRef","value":"1"},"filter":{"type":"ValueRef","value":"5"}},"functionName":"Collection.filter"}],["7",{"type":"Invocation",'+
+	// 	'"arguments":{"collection":{"type":"ValueRef","value":"6"}},"functionName":"Collection.size"}],["8",{"type":"Invocation","arguments":{"left":{"type":"ValueRef","value":"7"},"right":1},"functionName":"Number.add"}],'+
+	// 	'["9",{"type":"Invocation","arguments":{"collection":{"type":"ValueRef","value":"6"},"count":{"type":"ValueRef","value":"8"}},"functionName":"Collection.toList"}],["10",{"type":"Invocation","arguments":'+
+	// 	'{"object":{"type":"ArgumentRef","value":"_MAPPING_VAR_0_0"},"property":"id"},"functionName":"Element.get"}],["11",{"type":"Function","argumentNames":["_MAPPING_VAR_0_0"],"body":{"type":"ValueRef","value":"10"}}],'+
+	// 	'["12",{"type":"Invocation","arguments":{"list":{"type":"ValueRef","value":"9"},"baseAlgorithm":{"type":"ValueRef","value":"11"}},"functionName":"List.map"}],["13",{"type":"Invocation","arguments":{"list":{"type":"ValueRef","value":"0"},'+
+	// 	'"other":{"type":"ValueRef","value":"12"}},"functionName":"List.removeAll"}]],"value":{"type":"ValueRef","value":"13"}}'
 
+	var dataJson=JSON.stringify({"expression":{"result":"0","values":{"0":{"functionInvocationValue":{"arguments":{"list":{"valueReference":"1"},"other":{"functionInvocationValue":{"arguments":{"list":{"functionInvocationValue":{"arguments":{"collection":{"valueReference":"2"},"count":{"functionInvocationValue":
+	{"arguments":{"left":{"functionInvocationValue":{"arguments":{"collection":{"valueReference":"2"}},"functionName":"Collection.size"}},"right":{"constantValue":1}},"functionName":"Number.add"}}},"functionName":"Collection.toList"}},"baseAlgorithm":{"functionDefinitionValue":
+	{"argumentNames":["_MAPPING_VAR_0_0"],"body":"4"}}},"functionName":"List.map"}}},"functionName":"List.removeAll"}},"1":{"constantValue":features.map(e=>{return e.id})},"2":{"functionInvocationValue":{"arguments":{"collection":{"functionInvocationValue":{"arguments":
+	{"id":{"constantValue":planetPath.slice(0,-1)}},"functionName":"ImageCollection.load"}},"filter":{"functionInvocationValue":{"arguments":{"filters":{"arrayValue":{"values":[{"functionInvocationValue":{"arguments":{"rightField":{"valueReference":"3"},
+	"leftValue":{"valueReference":"1"}},"functionName":"Filter.listContains"}},{"functionInvocationValue":{"arguments":{"leftField":{"constantValue":"assetType"},"rightValue":{"constantValue":assetConfig}},"functionName":"Filter.equals"}}]}}},"functionName":"Filter.and"}}},
+	"functionName":"Collection.filter"}},"3":{"constantValue":"id"},"4":{"functionInvocationValue":{"arguments":{"object":{"argumentReference":"_MAPPING_VAR_0_0"},"property":{"valueReference":"3"}},"functionName":"Element.get"}}}}});
 	
 	/*var dataJson=
 		'{"type":"CompoundValue","scope":[["0",'+JSON.stringify(features.map(e=>{return e.id}))+'],["1",{"type":"Invocation","arguments":{"id":"'+planetPath.slice(0,-1)+'"},"functionName":"ImageCollection.load"}],'+
@@ -997,23 +1003,24 @@ function addSceneInConsole(randomId,features,assetConfig){
 		'"functionName":"List.map"}],["14",{"type":"Invocation","arguments":{"list":{"type":"ValueRef","value":"0"},"other":{"type":"ValueRef","value":"13"}},"functionName":"List.removeAll"}]],"value":{"type":"ValueRef","value":"14"}}'
 */
 	var IdPresneteInGEE4AjaxCall={
-		url: "https://earthengine.googleapis.com/api/value",
+		// url: "https://earthengine.googleapis.com/api/value",
+		url: "https://content-earthengine.googleapis.com/v1alpha/projects/earthengine-legacy/value:compute?key="+window._ee_flag_initialData.mapsApiKey,
 		type: "POST",
-		data: jQuery.param({json:dataJson}),
+		data: dataJson,
 		dataType: "json",
 		cache: false,
-		contentType: "application/x-www-form-urlencoded",
+		contentType: "application/json; charset=UTF-8",
 		headers: { "Authorization": authTokenGEE },
 		success: function(result){
 			$('#randId_'+randomId+' .planetScenesList div.sceneId.avoid-clicks').each(function(){
-				if(result.data.indexOf($(this).attr('value'))>=0){
+				if(result.result.indexOf($(this).attr('value'))>=0){
 					$(this).removeClass('avoid-clicks');
 				}else{
 					$(this).slideUp();
 				}
 			})
-			for (var i = 0; i < result.data.length; i++) {
-				result.data[i];
+			for (var i = 0; i < result.result.length; i++) {
+				result.result[i];
 			}
 			updateCountSelected(randomId);
 		}
