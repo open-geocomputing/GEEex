@@ -187,7 +187,7 @@ function analysisGeeAddon(){
 		runPlanetSearch(val);
 		return;	
 	}
-	if(consoleCode.startsWith('GEE_Addon_confirmManger:')){
+	if(consoleCode.startsWith('GEE_Addon_confirmManager:')){
 		confirmManager(val);
 		return;	
 	}
@@ -213,8 +213,8 @@ function loadInformationFromGoogleStorage(){
 }
 
 /***----------Code for GEE_Addon Asset Manager --------------***/
-//GEE_Addon_confirmManger:removeConfirmOn:
-//GEE_Addon_confirmManger:resetConfirmOn:
+//GEE_Addon_confirmManager:removeConfirmOn:
+//GEE_Addon_confirmManager:resetConfirmOn:
 function confirmManager(val){
 	var code=val.find('.trivial').clone().html();
 	val.hide();//.show();
